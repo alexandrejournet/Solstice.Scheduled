@@ -1,3 +1,3 @@
-# Radiant.NET.Service.Scheduled
+# Radiant.Service.Scheduled
 
-Partie Service scheduled de Radiant.NET Framework
+Partie Service scheduled de Radiant Framework

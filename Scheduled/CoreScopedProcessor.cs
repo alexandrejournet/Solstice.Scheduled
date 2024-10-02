@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Radiant.NET.Service.Scheduled.Core;
+using Radiant.Service.Scheduled.Core;
 
-namespace Radiant.NET.Service.Scheduled.Scheduled;
+namespace Radiant.Service.Scheduled.Scheduled;
 
 public abstract class CoreScopedProcessor<TDbContext>(IServiceScopeFactory serviceScopeFactory) : CoreBackgroundService 
     where TDbContext : DbContext

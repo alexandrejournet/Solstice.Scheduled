@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Hosting;
 
-namespace Radiant.NET.Service.Scheduled.Core;
+namespace Radiant.Service.Scheduled.Core;
 
 public abstract class CoreBackgroundService : IHostedService
 {

@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
-using Radiant.NET.Service.Scheduled.Core;
+using Radiant.Service.Scheduled.Core;
 using Scrap.Applications.Background.Queue;
 
-namespace Radiant.NET.Service.Scheduled.Queue;
+namespace Radiant.Service.Scheduled.Queue;
 
 public sealed class CoreQueuedBackgroundService : CoreBackgroundService
 {

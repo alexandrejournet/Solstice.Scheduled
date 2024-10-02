@@ -5,7 +5,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Title>Radiant.NET.Service.Scheduled</Title>
+        <Title>Radiant.Service.Scheduled</Title>
         <Authors>Alexandre JOURNET</Authors>
         <Description>Starter pack for building .NET Core API With Clean code (Scheduled Part)</Description>
     </PropertyGroup>

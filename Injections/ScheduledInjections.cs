@@ -2,7 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Scrap.Applications.Background.Queue;
 
-namespace Radiant.Service.Scheduled.Injections;
+namespace Solstice.Service.Scheduled.Injections;
 
 public static class ScheduledInjections
 {

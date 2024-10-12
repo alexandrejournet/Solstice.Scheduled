@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
-using Radiant.Service.Scheduled.Core;
+using Solstice.Service.Scheduled.Core;
 using Scrap.Applications.Background.Queue;
 
-namespace Radiant.Service.Scheduled.Queue;
+namespace Solstice.Service.Scheduled.Queue;
 
 public sealed class CoreQueuedBackgroundService : CoreBackgroundService
 {

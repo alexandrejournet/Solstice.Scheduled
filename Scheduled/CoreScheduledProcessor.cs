@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using NCrontab;
 
-namespace Radiant.Service.Scheduled.Scheduled;
+namespace Solstice.Service.Scheduled.Scheduled;
 
 public abstract class CoreScheduledProcessor<TDbContext> : CoreScopedProcessor<TDbContext> 
     where TDbContext : DbContext

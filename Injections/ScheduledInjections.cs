@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Scrap.Applications.Background.Queue;
+using Solstice.Scheduled.Queue;
 
-namespace Solstice.Service.Scheduled.Injections;
+namespace Solstice.Scheduled.Injections;
 
 public static class ScheduledInjections
 {

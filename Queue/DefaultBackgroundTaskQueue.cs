@@ -1,51 +1,49 @@
 ﻿using System.Threading.Channels;
 
-namespace Scrap.Applications.Background.Queue
+namespace Solstice.Scheduled.Queue;
+
+public sealed class DefaultBackgroundTaskQueue : IBackgroundTaskQueue
 {
-    public sealed class DefaultBackgroundTaskQueue : IBackgroundTaskQueue
+    private readonly Channel<QueueItem> _queue;
+
+    public DefaultBackgroundTaskQueue(
+        int capacity)
     {
-        private readonly Channel<QueueItem> _queue;
-
-        public DefaultBackgroundTaskQueue(
-            int capacity)
+        BoundedChannelOptions options = new(capacity)
         {
-            BoundedChannelOptions options = new(capacity)
-            {
-                FullMode = BoundedChannelFullMode.Wait
-            };
-            _queue = Channel.CreateBounded<QueueItem>(options);
+            FullMode = BoundedChannelFullMode.Wait
+        };
+        _queue = Channel.CreateBounded<QueueItem>(options);
+    }
+
+    public async ValueTask QueueBackgroundWorkItemAsync(
+        QueueItem workItem)
+    {
+        Console.WriteLine($"Queue item {workItem.Guid}");
+        if (workItem is null)
+        {
+            throw new ArgumentNullException(nameof(workItem));
         }
 
-        public async ValueTask QueueBackgroundWorkItemAsync(
-            QueueItem workItem)
-        {
-            Console.WriteLine($"Queue item {workItem.Guid}");
-            if (workItem is null)
-            {
-                throw new ArgumentNullException(nameof(workItem));
-            }
+        await _queue.Writer.WriteAsync(workItem);
+    }
 
-            await _queue.Writer.WriteAsync(workItem);
+    public async ValueTask<QueueItem> DequeueAsync(
+        CancellationToken cancellationToken)
+    {
+
+        if (_queue.Reader.TryRead(out QueueItem workItem))
+        {
+            Console.WriteLine($"=> Dequeue item {workItem.Guid}");
+            return workItem;
         }
 
-        public async ValueTask<QueueItem> DequeueAsync(
-            CancellationToken cancellationToken)
-        {
+        return null;
 
-            if (_queue.Reader.TryRead(out QueueItem workItem))
-            {
-                Console.WriteLine($"=> Dequeue item {workItem.Guid}");
-                return workItem;
-            }
+    }
 
-            return null;
-
-        }
-
-        public void ClearChannel()
-        {
-            _queue.Reader.ReadAllAsync();
-        }
+    public void ClearChannel()
+    {
+        _queue.Reader.ReadAllAsync();
     }
 }
-

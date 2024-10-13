@@ -1,13 +1,12 @@
-﻿namespace Scrap.Applications.Background.Queue
+﻿namespace Solstice.Scheduled.Queue;
+
+public interface IBackgroundTaskQueue
 {
-    public interface IBackgroundTaskQueue
-    {
-        ValueTask QueueBackgroundWorkItemAsync(
+    ValueTask QueueBackgroundWorkItemAsync(
         QueueItem workItem);
 
-        ValueTask<QueueItem> DequeueAsync(
-            CancellationToken cancellationToken);
+    ValueTask<QueueItem> DequeueAsync(
+        CancellationToken cancellationToken);
 
-        void ClearChannel();
-    }
+    void ClearChannel();
 }

@@ -1,31 +1,26 @@
 ﻿using Microsoft.Extensions.Logging;
-using Solstice.Service.Scheduled.Core;
-using Scrap.Applications.Background.Queue;
+using Solstice.Scheduled.Core;
 
-namespace Solstice.Service.Scheduled.Queue;
+namespace Solstice.Scheduled.Queue;
 
-public sealed class CoreQueuedBackgroundService : CoreBackgroundService
+public sealed class CoreQueuedBackgroundService(
+    IBackgroundTaskQueue taskQueue,
+    ILogger<CoreQueuedBackgroundService> logger)
+    : CoreBackgroundService
 {
-    private readonly Task _executingTask;
-    private readonly IBackgroundTaskQueue _taskQueue;
-    private readonly ILogger<CoreQueuedBackgroundService> _logger;
-
-    public CoreQueuedBackgroundService(
-        IBackgroundTaskQueue taskQueue,
-        ILogger<CoreQueuedBackgroundService> logger) =>
-        (_taskQueue, _logger) = (taskQueue, logger);
+    private readonly Task? _executingTask;
 
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        _logger.LogInformation(
+        logger.LogInformation(
             $"{nameof(CoreQueuedBackgroundService)} is running.");
 
         return base.ExecuteAsync(stoppingToken);
     }
 
-    public async Task StopAsync(CancellationToken stoppingToken)
+    public new async Task StopAsync(CancellationToken stoppingToken)
     {
-        _logger.LogInformation(
+        logger.LogInformation(
             $"{nameof(CoreQueuedBackgroundService)} is stopping.");
 
         await base.StopAsync(stoppingToken);
@@ -35,9 +30,9 @@ public sealed class CoreQueuedBackgroundService : CoreBackgroundService
     {
         while (!stoppingToken.IsCancellationRequested)
         {
-            _logger.LogInformation("QueueService: Process task");
+            logger.LogInformation("QueueService: Process task");
             QueueItem queueItem =
-                await _taskQueue.DequeueAsync(stoppingToken);
+                await taskQueue.DequeueAsync(stoppingToken);
 
             try
             {
@@ -46,11 +41,11 @@ public sealed class CoreQueuedBackgroundService : CoreBackgroundService
             catch (OperationCanceledException)
             {
                 // Prevent throwing if stoppingToken was signaled
-                _logger.LogWarning("OperationCanceledException: Error occurred executing task work item.");
+                logger.LogWarning("OperationCanceledException: Error occurred executing task work item.");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error occurred executing task work item.");
+                logger.LogError(ex, "Error occurred executing task work item.");
             }
         }
     }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Hosting;
 
-namespace Solstice.Service.Scheduled.Core;
+namespace Solstice.Scheduled.Core;
 
 public abstract class CoreBackgroundService : IHostedService
 {

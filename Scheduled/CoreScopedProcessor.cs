@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Solstice.Service.Scheduled.Core;
+using Solstice.Scheduled.Core;
 
-namespace Solstice.Service.Scheduled.Scheduled;
+namespace Solstice.Scheduled.Scheduled;
 
 public abstract class CoreScopedProcessor<TDbContext>(IServiceScopeFactory serviceScopeFactory) : CoreBackgroundService 
     where TDbContext : DbContext

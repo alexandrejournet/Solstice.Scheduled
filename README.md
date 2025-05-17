@@ -1,3 +1,3 @@
 # Solstice.Scheduled
 
-Partie Service scheduled de Radiant Framework
+Partie Service scheduled de Solstice Framework
